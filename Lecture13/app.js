@@ -1,7 +1,9 @@
 (function(){ 
     'use strict';
     angular.module('MsgApp', [])
-    .controller('MsgController', ['$scope','$filter', function($scope, $filter){
+    .filter('lovesMessage', lovesMessageFilterFactory)
+    .controller('MsgController', ['$scope','$filter', 'lovesMessageFilter', 
+    function($scope, $filter, lovesMessageFilter){
         $scope.name = "Arnold";
         $scope.cost = .456789;
         $scope.sayMessage = function(){
@@ -9,6 +11,14 @@
             var upperMsg = $filter('uppercase')(msg);
             return upperMsg;
         };
+
+        $scope.sayMessageLoves = function(){
+            var msg = "Arnold likes Angular Js framework!"
+            msg = lovesMessageFilter(msg);
+            msg = $filter('uppercase')(msg);
+            return msg;
+        };
+
         $scope.state = "hungry";
         $scope.btnValue = "Feed Yaakov";
         $scope.feedYaakov = function (){
@@ -17,4 +27,11 @@
             $scope.btnValue ="Feed Yaakov");
         };
     }]);
+
+    function lovesMessageFilterFactory(){
+        return function(input){
+            var output = input.replace("likes", "loves");
+            return output;
+        };
+    }
 })(); 
