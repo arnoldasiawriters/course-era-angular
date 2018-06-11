@@ -13,6 +13,8 @@
             {{name}} has a message for you. <br>
             Message is: {{sayMessage()}} <br>
             Loves Message is: {{sayMessageLoves()}} <br>
+            Truth: {{sayMessageLoves() | truth : 'loves' : 'is loving'}}<br>
+            Big Truth: {{sayMessageLoves() | truth : 'loves' : 'is loving' | uppercase }} <br>
             Cookie Cost: {{cost | currency : "£" : 4}}
             <br>
             <div>

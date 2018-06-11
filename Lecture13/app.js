@@ -2,6 +2,7 @@
     'use strict';
     angular.module('MsgApp', [])
     .filter('lovesMessage', lovesMessageFilterFactory)
+    .filter('truth', truthFilterFactory)
     .controller('MsgController', ['$scope','$filter', 'lovesMessageFilter', 
     function($scope, $filter, lovesMessageFilter){
         $scope.name = "Arnold";
@@ -15,7 +16,6 @@
         $scope.sayMessageLoves = function(){
             var msg = "Arnold likes Angular Js framework!"
             msg = lovesMessageFilter(msg);
-            msg = $filter('uppercase')(msg);
             return msg;
         };
 
@@ -30,7 +30,16 @@
 
     function lovesMessageFilterFactory(){
         return function(input){
+            input = input || "";
             var output = input.replace("likes", "loves");
+            return output;
+        };
+    }
+
+    function truthFilterFactory(){
+        return function(input, target, replace){
+            input = input || "";
+            var output = input.replace(target, replace);
             return output;
         };
     }
