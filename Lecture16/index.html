@@ -1,0 +1,23 @@
+<!Doctype html>
+<html ng-app="CounterApp">
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript" src="../angular.min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+        <style> body { font-size: 1.3em; }</style>
+        <title>2-Way, 1-Way and 1-time binding</title>
+    </head>
+    <body>
+        <h1>The Digest Cycle</h1>
+        <div ng-controller="CounterController">
+            <button ng-click="showNumberOfWatchers()">Show Number of Watchers</button><br>
+            <button ng-click="setFullName()">Set Full Name</button><br>
+            Full name is: {{ :: fullName }} <br>
+            <button ng-click="logFirstName()">Log first Name</button><br>
+            <button ng-click="logFullName()">Log Full Name</button><br>
+            <div>
+                <input type="text" ng-model="firstName">
+            </div>
+        </div>
+    </body>
+</html>
