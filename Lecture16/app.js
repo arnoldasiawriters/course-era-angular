@@ -7,7 +7,7 @@
 
     function CounterController($scope) {
         $scope.firstName = "Arnold";
-        $scope.fullName = "";
+        //$scope.fullName = "";
 
         $scope.showNumberOfWatchers = function () {
             console.log("# of Watchers: ", $scope.$$watchersCount);
