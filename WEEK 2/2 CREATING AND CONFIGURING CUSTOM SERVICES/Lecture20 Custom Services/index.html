@@ -1,1 +1,30 @@
-ECHO is on.
+<!Doctype html>
+<html ng-app="ShoppingListApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Custom Services</title>
+        <script type='text/javascript' src='angular.min.js'></script>
+        <script type='text/javascript' src='app.js'></script>
+        <style>
+            body{
+                font-size: 1.3em;
+            }
+        </style>
+    </head>
+    <body>
+        <div ng-controller="ShoppingListAddItemController as itemAdder">
+            <input type="text" ng-model="itemAdder.itemName" placeholder="item Name"><br>
+            <input type="text" ng-model="itemAdder.itemQuantity" placeholder="item Quantity"><br>
+            <button ng-click="itemAdder.addItem()">Add Item To Shopping List</button>
+        </div>
+
+        <div ng-controller="ShoppingListShowListItemsController as showList">
+            <ol>
+                <li ng-repeat="item in showList.items">
+                    {{item.itemQuantity}} of {{item.itemName}}
+                    <button ng-click="showList.removeItem($index);">Remove</button>
+                </li>
+            </ol>
+        </div>
+    </body>
+</html>
