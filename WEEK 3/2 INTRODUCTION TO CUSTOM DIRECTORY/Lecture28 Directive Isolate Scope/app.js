@@ -6,29 +6,31 @@
         .controller('ShoppingListController1', ShoppingListController1)
         .controller('ShoppingListController2', ShoppingListController2)
         .factory('ShoppingListFactory', ShoppingListFactory)
-        .directive('listItem', ListItem);
+        .directive('shoppingList', ShoppingList);
 
-    function ListItem() {
+    function ShoppingList() {
         var ddo = {
-            restrict: 'E',
-            templateUrl: "listItems-tpl.html"
+            templateUrl: "listItems-tpl.html",
+            scope: {
+                list: "=myList",
+                title: "@listTitle"
+            }
         };
         return ddo;
     }
-
     //List#1 Controller
     ShoppingListController1.$inject = ['ShoppingListFactory'];
     function ShoppingListController1(ShoppingListFactory) {
         var list = this;
         list.itemName = "";
         list.itemQuantity = "";
-
         var service = ShoppingListFactory();
         list.items = service.getItems();
-
+        list.title = "Shopping List #1 ("+ list.items.length +") Items";
         list.addItem = function () {
             try {
                 service.addItem(list.itemName, list.itemQuantity);
+                list.title = "Shopping List #1 ("+ list.items.length +") Items";
             } catch (error) {
                 list.errorMessage = error.message;
             }
@@ -36,6 +38,7 @@
 
         list.removeItem = function (index) {
             service.removeItem(index);
+            list.title = "Shopping List #1 ("+ list.items.length +") Items";
         };
     }
 
@@ -44,7 +47,7 @@
         var list = this;
         list.itemName = "";
         list.itemQuantity = "";
-        
+
         var service = ShoppingListFactory(3);
         list.items = service.getItems();
 
