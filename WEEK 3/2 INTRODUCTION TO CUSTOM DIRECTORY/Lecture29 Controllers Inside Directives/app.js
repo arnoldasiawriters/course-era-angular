@@ -5,6 +5,7 @@
         .module('ShoppingListApp', [])
         .factory('ShoppingListFactory', ShoppingListFactory)
         .controller('ShoppingListController', ShoppingListController)
+        .controller('ShoppingListDirectiveController', ShoppingListDirectiveController)
         .directive('shoppingList', ShoppingListDirective);
 
     ShoppingListController.$inject = ['ShoppingListFactory'];
@@ -14,9 +15,9 @@
         list.itemName = "";
         list.itemQuantity = 0;
 
-        var service = ShoppingListFactory(3);
+        var service = ShoppingListFactory();
         list.items = service.getItems();
-        list.title = "Shopping List (" + list.items.length + ")";
+        list.title = "Shopping List #1 (" + list.items.length + " Items)";
         list.addItem = function () {
             try {
                 service.addItem(list.itemName, list.itemQuantity);
@@ -39,8 +40,9 @@
                 items: "<",
                 title: "@"
             },
-            controller: "ShoppingListDirectiveController",
-            controllerAs: "list",
+            // controller: ShoppingListDirectiveController,
+            controller: "ShoppingListDirectiveController as list",
+            // controllerAs: "list",
             bindToController: true
         };
         return ddo;
@@ -48,15 +50,28 @@
 
     function ShoppingListDirectiveController() {
         var list = this;
+        // list.cookiesInList = function () {
+        //     for (var i = 0; i < list.items.length; i++) {
+        //       var name = list.items[i].itemName;
+        //       if (name.toLowerCase().indexOf("cookie") !== -1) {
+        //         return true;
+        //       }
+        //     }
+        
+        //     return false;
+        //   };
         list.cookiesInList = function () {
-            angular.forEach(items, function (v,k) {
-                if(v.itemName.toLowerCase().indexOf('cookie') !== -1){
-                    return true;
+            var returnVal = false;
+            angular.forEach(list.items, function (v,k) {
+                var name = v.itemName;
+                if(name.toLowerCase().indexOf("cookie") !== -1){
+                    returnVal  = true;
                 }
             });
+            return returnVal;
         };
-        
     }
+
     function ShoppingListService(maxItems) {
         var service = this;
         var items = [];
@@ -85,7 +100,6 @@
         var factory = function (maxItems) {
             return new ShoppingListService(maxItems);
         }
-
         return factory;
     }
 })();
