@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Manipulating DOM with link</title>
+    <link rel="stylesheet" type="text/css" href="app.css" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../../angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+
+<body>
+    <div ng-app="ShoppingListApp">
+        <div class="col-md-12">
+            <h1>Manipulating DOM with link</h1>
+            <div ng-controller="ShoppingListController as list">
+                <input type="text" ng-model="list.itemName" placeholder="Item Name">
+                <input type="number" ng-model="list.itemQuantity" placeholder="Item Quantity">
+                <button ng-click="list.addItem()">Add Item</button>
+                <h3 ng-if="list.lastItemRemoved.itemName">
+                    Last Item Removed Was: {{list.lastItemRemoved.itemName}}</h3>
+                <shopping-list remove-item="list.removeItem(index)" items="list.items" title="{{list.title}}"></shopping-list>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
